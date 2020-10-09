@@ -15,19 +15,18 @@ exports.newInstance = async function($, spec) {
     try {
         const that = genComponent.create($, spec);
         const cp = 'cp';
+        const source = 'foo-test1';
 
         that.changeBalance = async function(delta, reason) {
-            const current = await $._.$[cp].getBalance();
-            const balance = await $._.$[cp].changeBalance(current, delta,
-                                                          reason);
-            return [null, balance];
+            const nonce = 'changeBalance_' + myUtils.uniqueId();
+            await $._.$[cp].changeBalance(source, nonce, delta, reason);
+            return [];
         };
 
         that.changePoolSize = async function(delta, reason) {
-            const current = await $._.$[cp].getPoolSize();
-            const poolSize = await $._.$[cp].changePoolSize(current, delta,
-                                                            reason);
-            return [null, poolSize];
+            const nonce = 'changePoolSize_' + myUtils.uniqueId();
+            await $._.$[cp].changePoolSize(source, nonce, delta, reason);
+            return [];
         };
 
         that.getBalance = async function() {
